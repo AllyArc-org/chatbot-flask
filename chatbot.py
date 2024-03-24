@@ -3,7 +3,7 @@ from transformers import AutoModelForCausalLM, AutoTokenizer
 from flask import Flask, request, jsonify, render_template
 
 # Load the pre-trained model and tokenizer
-model_name = "gpt2"  # Replace with your desired model name
+model_name = "AllyArc/llama_allyarc"  # Replace with your desired model name
 model = AutoModelForCausalLM.from_pretrained(model_name)
 tokenizer = AutoTokenizer.from_pretrained(model_name)
 
