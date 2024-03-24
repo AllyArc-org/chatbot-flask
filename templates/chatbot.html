@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Chatbot</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/chatbot.css') }}"  />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="{{ url_for('static', filename='js/chatbot.js') }}"></script>
+  </head>
+
+  <body>
+    <div id="chatbot-container">
+      <div id="chatbot-header">
+        <h2>Chatbot</h2>
+        <div id="header-buttons">
+          <button id="new-chat-btn" title="New Chat">
+            <i class="fas fa-plus"></i>
+          </button>
+          <button id="dark-mode-btn" title="Toggle Dark Mode">
+            <i class="fas fa-moon"></i>
+          </button>
+        </div>
+      </div>
+      <div id="chatbot-messages">
+        <!-- Chat messages will be dynamically added here -->
+      </div>
+      <div id="user-input-container">
+        <input type="text" id="user-input" placeholder="Type a message..." />
+        <button id="send-btn"><i class="fas fa-paper-plane"></i></button>
+      </div>
+    </div>
+  </body>
+</html>

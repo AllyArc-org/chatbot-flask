@@ -3,7 +3,7 @@ from transformers import AutoModelForCausalLM, AutoTokenizer
 from flask import Flask, request, jsonify, render_template
 
 # Load the pre-trained model and tokenizer
-model_name = "microsoft/phi-2"  # Replace with your desired model name
+model_name = "gpt2"  # Replace with your desired model name
 model = AutoModelForCausalLM.from_pretrained(model_name)
 tokenizer = AutoTokenizer.from_pretrained(model_name)
 
@@ -26,13 +26,13 @@ def generate_response(input_text):
 # Serve the HTML file
 @app.route('/')
 def home():
-    return render_template('index.html')
+    return render_template('chatbot.html')
 
 # API endpoint for chatbot
 @app.route('/chatbot', methods=['POST'])
 def chatbot():
     # Get the user input from the request
-    user_input = request.json['input']
+    user_input = request.json.get('input', '')
 
     # Generate the response
     response = generate_response(user_input)
