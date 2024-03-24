@@ -16,11 +16,29 @@ def generate_response(input_text):
     input_ids = tokenizer.encode(input_text, return_tensors="pt")
 
     # Generate the response
-    output = model.generate(input_ids, max_length=100, num_return_sequences=1)
+    output = model.generate(
+        input_ids,
+        max_length=150,  # Increase the maximum response length
+        num_return_sequences=1,
+        temperature=0.7,  # Adjust the temperature for response diversity
+        top_p=0.9,  # Adjust the top_p for response coherence
+    )
 
     # Decode the generated response
     response = tokenizer.decode(output[0], skip_special_tokens=True)
 
+    # Implement response filtering
+    response = filter_response(response)
+
+    return response
+
+# Response filtering function
+def filter_response(response):
+    # Implement your response filtering logic here
+    # Example: Check for inappropriate or nonsensical content
+    if "inappropriate" in response.lower():
+        response = "I apologize, but I cannot provide an appropriate response."
+    
     return response
 
 # Serve the HTML file
@@ -34,8 +52,11 @@ def chatbot():
     # Get the user input from the request
     user_input = request.json.get('input', '')
 
+    # Provide more context to the chatbot
+    context = "User: " + user_input + "\nAssistant:"
+
     # Generate the response
-    response = generate_response(user_input)
+    response = generate_response(context)
 
     # Return the response as JSON
     return jsonify({'response': response})
