@@ -39,7 +39,7 @@ def generate_response(input_text, conversation_history):
     return assistant_response
 
 # Response filtering function
-def filter_response(response):
+def filter_response(response, user_input):
     # Implement your response filtering logic here
     # Example: Check for inappropriate or nonsensical content
     if "inappropriate" in response.lower():
