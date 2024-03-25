@@ -33,10 +33,10 @@ def generate_response(input_text, conversation_history):
     # Decode the generated response
     response = tokenizer.decode(output[0], skip_special_tokens=True)
 
-    # Remove the Assistant: prefix from the response
-    response = response.replace("Assistant:", "").strip()
+    # Extract only the first instance of the assistant's response
+    assistant_response = response.split("User:", 1)[0].strip()
 
-    return response
+    return assistant_response
 
 # Response filtering function
 def filter_response(response):
@@ -61,17 +61,14 @@ def chatbot():
     # Get the conversation history from the request
     conversation_history = request.json.get('conversation_history', '')
 
-    # Generate the response based on the user input and conversation history
+    # Generate the assistant's response based on the user input and conversation history
     response = generate_response(user_input, conversation_history)
 
-    # Filter the generated response
-    response = filter_response(response)
+    # Filter the generated response (if necessary)
+    response = filter_response(response, user_input)
 
-    # Append the user input and generated response to the conversation history
-    conversation_history += f"User: {user_input}\nAssistant: {response}\n"
-
-    # Return the updated conversation history and response as JSON
-    return jsonify({'response': response, 'conversation_history': conversation_history})
+    # Return the response as JSON
+    return jsonify({'response': response})
 
 # Run the Flask app
 if __name__ == '__main__':
