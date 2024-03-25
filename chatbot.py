@@ -43,7 +43,9 @@ def generate_response(input_text, conversation_history):
     print("Generated Response:", response)
 
     # Extract only the first instance of the assistant's response
-    assistant_response = response.split("User:", 1)[0].strip()
+    assistant_response = response.split("User:")[1].split("Assistant:", 1)[1].strip()
+    
+
 
     print("Assistant Response:", assistant_response)
 
