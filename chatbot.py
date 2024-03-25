@@ -64,6 +64,7 @@ def filter_response(response, user_input):
     
     return response
 
+
 # Serve the HTML file
 @app.route('/')
 def home():
@@ -90,7 +91,7 @@ def chatbot():
 
     print("Updated Conversation History:", conversation_history)
 
-    # Return the response as JSON
+    # Return the assistant's response as JSON
     return jsonify({'response': assistant_response})
 
 # Run the Flask app

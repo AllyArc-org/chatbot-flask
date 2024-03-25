@@ -14,57 +14,44 @@ $(document).ready(function () {
   var newChatBtn = $("#new-chat-btn");
 
   // Send user message to chatbot and display response
-  function sendMessage(message) {
-    // Display user message
-    var userMessage = $('<div class="message user-message"></div>');
-    var userMessageBubble = $('<div class="message-bubble"></div>').text(
-      message
-    );
-    userMessage.append(userMessageBubble);
-    chatbotMessages.append(userMessage);
-    chatbotMessages.animate(
-      { scrollTop: chatbotMessages[0].scrollHeight },
-      500
-    );
+// Send user message to chatbot and display response
+function sendMessage(message) {
+  // Display user message
+  var userMessage = $('<div class="message user-message"></div>');
+  var userMessageBubble = $('<div class="message-bubble"></div>').text(message);
+  userMessage.append(userMessageBubble);
+  chatbotMessages.append(userMessage);
+  chatbotMessages.animate({ scrollTop: chatbotMessages[0].scrollHeight }, 500);
 
-    // Show loading animation
-    var loadingMessage = $('<div class="message chatbot-message"></div>');
-    var loadingMessageBubble = $('<div class="message-bubble"></div>');
-    var loadingContent = $('<div class="loading"></div>');
-    loadingContent.append(
-      '<span class="dot"></span><span class="dot"></span><span class="dot"></span>'
-    );
-    loadingMessageBubble.append(loadingContent);
-    loadingMessage.append(loadingMessageBubble);
-    chatbotMessages.append(loadingMessage);
-    chatbotMessages.animate(
-      { scrollTop: chatbotMessages[0].scrollHeight },
-      500
-    );
+  // Show loading animation
+  var loadingMessage = $('<div class="message chatbot-message"></div>');
+  var loadingMessageBubble = $('<div class="message-bubble"></div>');
+  var loadingContent = $('<div class="loading"></div>');
+  loadingContent.append('<span class="dot"></span><span class="dot"></span><span class="dot"></span>');
+  loadingMessageBubble.append(loadingContent);
+  loadingMessage.append(loadingMessageBubble);
+  chatbotMessages.append(loadingMessage);
+  chatbotMessages.animate({ scrollTop: chatbotMessages[0].scrollHeight }, 500);
 
-    // Send message to server and display chatbot response
-    $.ajax({
-      url: "/chatbot",
-      method: "POST",
-      contentType: "application/json",
-      data: JSON.stringify({ input: message }),
-      success: function (response) {
-        loadingMessage.remove();
-        var chatbotMessage = $('<div class="message chatbot-message"></div>');
-        var chatbotAvatar = $('<div class="chatbot-avatar"></div>').text("C");
-        var chatbotMessageBubble = $('<div class="message-bubble"></div>').text(
-          response.response
-        );
-        chatbotMessage.append(chatbotAvatar);
-        chatbotMessage.append(chatbotMessageBubble);
-        chatbotMessages.append(chatbotMessage);
-        chatbotMessages.animate(
-          { scrollTop: chatbotMessages[0].scrollHeight },
-          500
-        );
-      },
-    });
-  }
+  // Send message to server and display chatbot response
+  $.ajax({
+    url: "/chatbot",
+    method: "POST",
+    contentType: "application/json",
+    data: JSON.stringify({ input: message }),
+    success: function (response) {
+      loadingMessage.remove();
+      var assistantResponse = response.response;
+      var chatbotMessage = $('<div class="message chatbot-message"></div>');
+      var chatbotAvatar = $('<div class="chatbot-avatar"></div>').text("C");
+      var chatbotMessageBubble = $('<div class="message-bubble"></div>').text(assistantResponse);
+      chatbotMessage.append(chatbotAvatar);
+      chatbotMessage.append(chatbotMessageBubble);
+      chatbotMessages.append(chatbotMessage);
+      chatbotMessages.animate({ scrollTop: chatbotMessages[0].scrollHeight }, 500);
+    },
+  });
+}
 
   // Handle send button click
 
