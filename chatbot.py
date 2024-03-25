@@ -10,8 +10,15 @@ tokenizer = AutoTokenizer.from_pretrained(model_name)
 # Initialize Flask app
 app = Flask(__name__)
 
+# Initialize conversation history
+conversation_history = ""
+
 # Chatbot logic
 def generate_response(input_text, conversation_history):
+    print("Generating response...")
+    print("Input Text:", input_text)
+    print("Conversation History:", conversation_history)
+
     # Combine the conversation history and user input
     input_text = conversation_history + "User: " + input_text + "\nAssistant:"
 
@@ -33,17 +40,27 @@ def generate_response(input_text, conversation_history):
     # Decode the generated response
     response = tokenizer.decode(output[0], skip_special_tokens=True)
 
+    print("Generated Response:", response)
+
     # Extract only the first instance of the assistant's response
     assistant_response = response.split("User:", 1)[0].strip()
+
+    print("Assistant Response:", assistant_response)
 
     return assistant_response
 
 # Response filtering function
 def filter_response(response, user_input):
+    print("Filtering response...")
+    print("Response:", response)
+    print("User Input:", user_input)
+
     # Implement your response filtering logic here
     # Example: Check for inappropriate or nonsensical content
     if "inappropriate" in response.lower():
         response = "I apologize, but I cannot provide an appropriate response."
+    
+    print("Filtered Response:", response)
     
     return response
 
@@ -55,20 +72,26 @@ def home():
 # API endpoint for chatbot
 @app.route('/chatbot', methods=['POST'])
 def chatbot():
+    global conversation_history
+
     # Get the user input from the request
     user_input = request.json.get('input', '')
 
-    # Get the conversation history from the request
-    conversation_history = request.json.get('conversation_history', '')
+    print("User Input:", user_input)
 
     # Generate the assistant's response based on the user input and conversation history
-    response = generate_response(user_input, conversation_history)
+    assistant_response = generate_response(user_input, conversation_history)
 
     # Filter the generated response (if necessary)
-    response = filter_response(response, user_input)
+    assistant_response = filter_response(assistant_response, user_input)
+
+    # Update the conversation history
+    conversation_history += "User: " + user_input + "\nAssistant: " + assistant_response + "\n"
+
+    print("Updated Conversation History:", conversation_history)
 
     # Return the response as JSON
-    return jsonify({'response': response})
+    return jsonify({'response': assistant_response})
 
 # Run the Flask app
 if __name__ == '__main__':
