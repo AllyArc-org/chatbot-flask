@@ -10,17 +10,13 @@ tokenizer = AutoTokenizer.from_pretrained(model_name)
 # Initialize Flask app
 app = Flask(__name__)
 
-# Initialize conversation history
-conversation_history = ""
 
 # Chatbot logic
-def generate_response(input_text, conversation_history):
+def generate_response(input_text):
     print("Generating response...")
     print("Input Text:", input_text)
-    print("Conversation History:", conversation_history)
 
-    # Combine the conversation history and user input
-    input_text = conversation_history + "User: " + input_text + "\nAssistant:"
+    input_text = "User: " + input_text + "\nAssistant:"
 
     # Tokenize the input text
     input_ids = tokenizer.encode(input_text, return_tensors="pt")
@@ -75,7 +71,6 @@ def home():
 # API endpoint for chatbot
 @app.route('/chatbot', methods=['POST'])
 def chatbot():
-    global conversation_history
 
     # Get the user input from the request
     user_input = request.json.get('input', '')
@@ -83,15 +78,10 @@ def chatbot():
     print("User Input:", user_input)
 
     # Generate the assistant's response based on the user input and conversation history
-    assistant_response = generate_response(user_input, conversation_history)
+    assistant_response = generate_response(user_input)
 
     # Filter the generated response (if necessary)
     assistant_response = filter_response(assistant_response, user_input)
-
-    # Update the conversation history
-    conversation_history += "User: " + user_input + "\nAssistant: " + assistant_response + "\n"
-
-    print("Updated Conversation History:", conversation_history)
 
     # Return the assistant's response as JSON
     return jsonify({'response': assistant_response})
