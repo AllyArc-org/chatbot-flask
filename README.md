@@ -13,11 +13,11 @@ The Llama model, integrated within this chatbot, has demonstrated varied perform
 
 2. **Homework Assistance:**
    - When prompted with academic-related queries, the model seeks additional information to tailor its assistance accordingly (Screenshot 2024-03-25 014359.png).
-<img src="https://raw.githubusercontent.com/AllyArc-org/chatbot-flask/main/Screenshot%202024-03-25%20014359.png" width="750" height="500">
+<img src="https://raw.githubusercontent.com/AllyArc-org/chatbot-flask/main/Screenshot%202024-03-25%20014359.png" width="500" height="750">
 
 3. **Mathematical Concepts:**
    - Llama is observed explaining mathematical concepts like factorization in a structured manner, demonstrating its educational aid capabilities 
-   <img src="https://raw.githubusercontent.com/AllyArc-org/chatbot-flask/main/Screenshot%202024-03-27%20173503.png" width="750" height="500">
+   <img src="https://raw.githubusercontent.com/AllyArc-org/chatbot-flask/main/Screenshot%202024-03-27%20173503.png" width="500" height="750">
 
 #### Observations on Conversational Abilities
 The chatbot demonstrates a basic understanding of user prompts and provides relevant information on a range of topics. However, it falls short in several aspects:
