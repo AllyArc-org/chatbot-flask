@@ -10,7 +10,7 @@ The Llama model, integrated within this chatbot, has demonstrated varied perform
    - The model is capable of understanding and responding to casual greetings and can clarify its non-human nature to users.
    - It appropriately directs users to provide more details when asked about specific tasks, such as homework help
      
-<img src="https://raw.githubusercontent.com/AllyArc-org/chatbot-flask/main/Screenshot%202024-03-25%20012322.png" width="750" height="500">
+<img src="https://raw.githubusercontent.com/AllyArc-org/chatbot-flask/main/Screenshot%202024-03-25%20012322.png" width="500" height="750">
 
 
 2. **Homework Assistance:**
